@@ -1,9 +1,18 @@
 #include <unistd.h>
-#include <stdio.h>
 
 void my_putchar(char c)
 {
     write(1, &c, 1);
+}
+
+void my_putstr(char * s)
+{
+    int i = 0;
+
+    while (s[i] != '\0') {
+        my_putchar(s[i]);
+        i++;
+    }
 }
 
 int my_print_comb()
@@ -13,31 +22,23 @@ int my_print_comb()
     int unites;
     int n = 12;
 
-    while (centaines <= dixaines && dixaines <= unites)
+    while (centaines <= 7)
     {
-        unites = n % 1000 % 100 % 10;
-        dixaines = ((n % 1000 % 100) - unites) / 10;
+        unites = n % 10;
+        dixaines = ((n % 100) - unites) / 10;
         centaines = ((n % 1000) - dixaines - unites) / 100;
 
-        // printf("%s", "Unites: ");
-        // printf("%i", unites);
-        // printf("%c", '\n');
-        // printf("%s", "Dixaines: ");
-        // printf("%i", dixaines);
-        // printf("%c", '\n');
-        // printf("%s", "Centaines: ");
-        // printf("%i", centaines);
-        // printf("%c", '\n');
-
-        if (unites <= dixaines || dixaines <= centaines)
+        if (unites <= dixaines || dixaines <= centaines) {
+            n++;
             continue;
+        }   
 
-        my_putchar(centaines + 48);
-        my_putchar(dixaines + 48);
-        my_putchar(unites + 48);       
-        my_putchar(',');
-        my_putchar(' ');
+        if (n != 12)
+            my_putstr(", ");
 
+        my_putchar(centaines + '0'); 
+        my_putchar(dixaines + '0'); 
+        my_putchar(unites + '0'); 
         n++;
     }
     my_putchar('\n');
@@ -45,8 +46,8 @@ int my_print_comb()
     return 0;
 }
 
-int main()
-{
-    my_print_comb();
-    return 0;
-}
+// int main()
+// {
+//     my_print_comb();
+//     return 0;
+// }
